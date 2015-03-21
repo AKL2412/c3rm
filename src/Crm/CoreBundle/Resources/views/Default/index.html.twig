@@ -1,0 +1,79 @@
+
+
+<li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <i class="fa-bell fa"></i>
+                 <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-eye fa"></i>
+                            {{'Voir tous'|trans}}
+                        </a>
+                    </li>
+                  </ul>
+</li>
+<li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        
+                         {%if messages|length > 0 %}
+                             <span class="alert-notif">{{messages|length}} </span> 
+                         {%endif%}
+                           <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                        {%for m in messages%}
+                        {%set thread = m.thread%}
+                        {%set message = m.message%}
+                        {%set sender = m.sender%}
+                            <li>
+                            	
+                                <a href="{{path('fos_message_thread_view',{threadId:thread.id})}} ">
+                                    <div>
+                                        <strong>{{m.sender.prenom }} {{m.sender.nom }}</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>{{ thread.createdAt|date('d-m-Y H:i:s') }}</em>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <strong><u>{{ thread.subject}}</u></strong>
+                                    </div>
+                                    <div>
+                                        {%if message.body |length > 50 %}
+                                            {{ message.body |slice(0,50) }} ...
+                                        {%else%}
+                                            {{ message.body }}
+                                        {%endif%}
+                                    
+
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        {%endfor%}
+                           
+                            
+                            <li>
+                                <a class="text-center" href="{{path('fos_message_inbox')}}">
+                                    <strong>Messagerie</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-messages -->
+                    </li>
+               <!--  <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <i class="fa-comment fa"></i>
+                 <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="divider"></li>
+                    <li>
+                        <a href="{{url('fos_message_inbox')}} ">
+                            <i class="fa-comments fa"></i>
+                            {{'Voir tous'|trans}}
+                        </a>
+                    </li>
+                  </ul>
+                </li> -->

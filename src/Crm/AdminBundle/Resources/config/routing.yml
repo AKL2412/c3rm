@@ -1,0 +1,28 @@
+crm_admin_homepage:
+    path:     /admin
+    defaults: { _controller: CrmAdminBundle:Default:index }
+
+crm_admin_ajouter_utilisateur:
+    path:     /les-utilisateurs/ajouter
+    defaults: { _controller: CrmAdminBundle:Default:ajouterutilisateur }
+
+crm_admin_utilisateurs_modifier_un:
+    path:     /les-utilisateurs/modifier-{id}
+    defaults: { _controller: CrmAdminBundle:Default:modifierutilisateur }
+
+crm_admin_creer_compte_utilisateur:
+    path:     /les-utilisateurs-{id}/creer-compte
+    defaults: { _controller: CrmAdminBundle:Default:creercompteutilisateur }
+
+crm_admin_active_desactiver_compte_utilisateur:
+    path:     /les-utilisateurs-{id}/activer-desactiver-compte
+    defaults: { _controller: CrmAdminBundle:Default:activerDesactiverCompte }
+
+
+crm_admin_utilisateur_affecter_des_agents:
+    path:     /les-utilisateurs-{id}/affecter-des-agents
+    defaults: { _controller: CrmAdminBundle:Default:affecterAgentUtilisateur }
+
+crm_admin_utilisateur_affecter_des_confirmateurs:
+    path:     /les-utilisateurs-{id}/affecter-des-confirmateurs
+    defaults: { _controller: CrmAdminBundle:Default:affecterConfirmateurUtilisateur }

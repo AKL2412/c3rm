@@ -1,0 +1,60 @@
+<div class="main">
+	<h4 class="text-center" id="nombre-contact">
+		{{contacts|length}}	contact(s)
+	</h4>
+</div>
+<div class="main" id="list-contacts">
+	{%for contact in contacts%}
+		
+			<a n="{{contact.id}}" href="{{url('fos_message_thread_new',{d:crypt.encrypt(contact.compte.username)})}} ">
+				{{contact.prenom}}
+				<span>{{contact.nom}}</span>
+				<i class="fa-share fa pull-right"></i>
+			</a>
+		
+	{%endfor%}
+</div>
+<div class="main">
+	<input id="search-contact" type="text" placeholder="Rechercher un contact"/>
+</div>
+<script type="text/javascript" src="{{asset('js/jquery.min.js')}} "></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#list-contacts a').attr('etat', 'show');
+		var nom = "junior";
+		$('#search-contact').keyup(function(event) {
+			/* Act on the event */
+			var texte = $(this).val();
+			show(texte);
+		});
+
+		function show(texte){
+			texte = texte.toLowerCase();
+			var compter = 0;
+			$.each($('#list-contacts a'), function(index, val) {
+				 var di = $(val);
+				 var texted = di.text();
+				 texted = texted.toLowerCase();
+				 if(texted.indexOf(texte) != -1 ){
+				 	di.show();
+				 	compter++;
+				 }
+				 else
+				 	di.hide();
+			});
+			$('#nombre-contact').text(compter+" contact(s)");
+		}
+	});
+	function contactActive($id){
+
+		$.each($('#list-contacts a'), function(index, val) {
+				 var di = $(val);
+				 if(di.attr('n') == $id ){
+				 	var m = di.offset().top - di.parent().offset().top
+				 	//alert(m)
+				 	di.parent().scrollTop(m);
+				 	di.addClass('active');
+				 }
+			});
+	}
+</script>

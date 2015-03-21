@@ -1,0 +1,222 @@
+@import url(font.css);
+/* line 3, ../compass/sass/app.scss */
+body {
+  background-color: #f1f1f1;
+  /*E9EAED;*/
+  /*font-family: 'discoregular';*/
+  /*
+  	Page de contact
+  */
+}
+/* line 6, ../compass/sass/app.scss */
+body span.alert-notif {
+  display: inline-block;
+  padding: 2px;
+  color: #ffffff;
+  background-color: #b72f2f;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+/* line 14, ../compass/sass/app.scss */
+body #update-bell-message .dropdown-messages {
+  width: 250px;
+}
+/* line 19, ../compass/sass/app.scss */
+body .un-groupe {
+  width: 100%;
+  min-height: 200px;
+  height: auto;
+  border: 0px solid #aaa;
+  background: #ffffff;
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+}
+/* line 26, ../compass/sass/app.scss */
+body .un-groupe .top {
+  height: 150px;
+}
+/* line 28, ../compass/sass/app.scss */
+body .un-groupe .top .nombre {
+  color: #8e2727;
+  font-size: 7em;
+  text-align: center;
+  font-family: 'eb_garamondregular';
+  text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
+}
+/* line 36, ../compass/sass/app.scss */
+body .un-groupe .bottom {
+  height: 50px;
+  background-color: #8e2727;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 1.9em;
+  font-family: 'discoregular';
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9);
+}
+/* line 48, ../compass/sass/app.scss */
+body .un-groupe.agent .top .nombre {
+  color: #3b6020;
+}
+/* line 51, ../compass/sass/app.scss */
+body .un-groupe.agent .bottom {
+  background-color: #3b6020;
+}
+/* line 55, ../compass/sass/app.scss */
+body .main {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  margin: 3px 0;
+  border-radius: 0;
+  /*@include box-shadow(0 0 1px rgba(0,0,0,0.1));*/
+}
+/* line 64, ../compass/sass/app.scss */
+body .details-utilisateur li {
+  font-weight: bolder;
+}
+/* line 66, ../compass/sass/app.scss */
+body .details-utilisateur li i {
+  margin-right: 6px;
+  color: rgba(0, 0, 0, 0.5);
+}
+/* line 72, ../compass/sass/app.scss */
+body span.nom {
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+/* line 76, ../compass/sass/app.scss */
+body #body-main {
+  margin-top: 0px;
+}
+/* line 80, ../compass/sass/app.scss */
+body #top {
+  z-index: 1000;
+}
+/* line 82, ../compass/sass/app.scss */
+body #top nav {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+/* line 87, ../compass/sass/app.scss */
+body .titre-de-page {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background-image: url(../images/campagne-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background: #232937;
+  margin-bottom: 8px;
+  /*min-height: 20px;
+  height: auto;*/
+}
+/* line 97, ../compass/sass/app.scss */
+body .titre-de-page .un-groupe {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+}
+/* line 99, ../compass/sass/app.scss */
+body .titre-de-page .un-groupe a {
+  text-decoration: none;
+}
+/* line 103, ../compass/sass/app.scss */
+body .titre-de-page .titre {
+  font-size: 1.6em;
+  color: #ffffff;
+  font-family: 'orbitronbold';
+}
+/* line 107, ../compass/sass/app.scss */
+body .titre-de-page .titre .bloc-messagerie {
+  list-style: none;
+}
+/* line 109, ../compass/sass/app.scss */
+body .titre-de-page .titre .bloc-messagerie li {
+  display: inline-block;
+  font-size: 0.7em;
+  margin: 5px;
+}
+/* line 113, ../compass/sass/app.scss */
+body .titre-de-page .titre .bloc-messagerie li a.active {
+  color: #7cbc0a;
+  font-family: 'eb_garamondregular';
+  font-size: 1.2em;
+}
+/* line 123, ../compass/sass/app.scss */
+body .titre-de-page .liens i {
+  color: #ffffff;
+  margin: 0 3px;
+}
+/* line 127, ../compass/sass/app.scss */
+body .titre-de-page .liens a {
+  color: #ccc;
+  text-decoration: none;
+}
+/* line 131, ../compass/sass/app.scss */
+body .titre-de-page .liens a.active {
+  color: #7cbc0a;
+}
+/* line 136, ../compass/sass/app.scss */
+body .titre-de-page.index {
+  -webkit-box-shadow: 0 -4px 9px rgba(0, 0, 0, 0.5) inset;
+  -moz-box-shadow: 0 -4px 9px rgba(0, 0, 0, 0.5) inset;
+  box-shadow: 0 -4px 9px rgba(0, 0, 0, 0.5) inset;
+  padding-bottom: 80px;
+  background-color: #636a7a;
+  border-bottom: 5px inset #777;
+}
+/* line 142, ../compass/sass/app.scss */
+body footer {
+  min-height: 100px;
+  background-image: url(../images/campagne-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-top: 30px;
+}
+/* line 153, ../compass/sass/app.scss */
+body #search-contact {
+  border: 1px solid #ffffff;
+  display: block;
+  width: 100%;
+  height: 35px;
+  padding-left: 8px;
+  font-family: 'eb_garamondregular';
+  font-size: 1.2em;
+}
+/* line 162, ../compass/sass/app.scss */
+body #list-contacts {
+  height: 300px;
+  overflow: auto;
+}
+/* line 165, ../compass/sass/app.scss */
+body #list-contacts a {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  padding: 3px 3%;
+  -webkit-transition-duration: 0.6s;
+  -moz-transition-duration: 0.6s;
+  -o-transition-duration: 0.6s;
+  transition-duration: 0.6s;
+}
+/* line 171, ../compass/sass/app.scss */
+body #list-contacts a i {
+  display: none;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+/* line 176, ../compass/sass/app.scss */
+body #list-contacts a.active {
+  color: #f1f1f1;
+  padding-left: 6%;
+  font-weight: bolder;
+  background: #232937;
+}
+/* line 181, ../compass/sass/app.scss */
+body #list-contacts a.active i {
+  display: inline;
+}

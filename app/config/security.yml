@@ -1,0 +1,36 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_CONF:     ROLE_AGENT
+        ROLE_SUP:      ROLE_CONF
+        ROLE_ADMIN:       ROLE_SUP
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+    firewalls:
+            main:
+                pattern: ^/
+                anonymous: true
+                provider: fos_userbundle
+                form_login:
+                     login_path: fos_user_security_login
+                     check_path: fos_user_security_check
+                logout:
+                    path: fos_user_security_logout
+                    target: /c3rm
+                    success_handler: crm_user_security.authentication.logout_success_handler
+                remember_me:
+                    key: %secret%
+            dev:
+               pattern:  ^/(_(profiler|wdt)|css|images|js)/
+               security: false
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

@@ -1,0 +1,7 @@
+
+services:
+    crm_user_security.authentication.logout_success_handler:
+        class:  Crm\UserBundle\Authentication\LogoutSuccessHandler
+        arguments:  ["@doctrine.orm.entity_manager", @router]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }

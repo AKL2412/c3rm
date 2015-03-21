@@ -1,0 +1,48 @@
+services:
+#    crm_core.example:
+#        class: Crm\CoreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    crm_core.pagination:
+        class: Crm\CoreBundle\Pagination\Pagination
+        arguments: []
+
+    crm_core.crypt:
+        class: Crm\AdminBundle\Entity\Encodage
+        arguments: []
+
+    crm_core.granted:
+        class: Crm\CoreBundle\Role\Granted
+
+
+    crm_core.create.username:
+        class: Crm\CoreBundle\User\Username
+        arguments: ["@doctrine.orm.entity_manager","@fos_user.user_manager"]
+
+    crm_core.search.utilisateur.data:
+        class: Crm\CoreBundle\Search\Data
+        arguments: ["@crm_core.pagination","@doctrine.orm.entity_manager"]
+
+
+
+    crm_core.echec.connexion:
+        class: Crm\CoreBundle\Echecconnexion\Echecconnexion
+        arguments: []
+        calls:
+            - [setEntityManager, ["@doctrine.orm.entity_manager"]]
+        tags:
+        #    - { name: kernel.event_listener, event: security.authentication.failure,method: onKernelLogFail }
+
+    crm_core.ok.connexion:
+        class: Crm\CoreBundle\Connected\Connected
+        arguments: []
+        calls:
+            - [setEntityManager, ["@doctrine.orm.entity_manager"]]
+        tags:
+           - { name: kernel.event_listener, event: security.authentication.success,method: onKernelLogOk }
+
+
+    crm_core.search:
+        class: Crm\CoreBundle\Search\Search
+        arguments: []
+        calls:
+            - [setEntityManager, ["@doctrine.orm.entity_manager"]]

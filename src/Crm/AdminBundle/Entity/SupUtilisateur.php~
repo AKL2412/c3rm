@@ -1,0 +1,77 @@
+<?php
+
+namespace Crm\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SupAgent
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class SupUtilisateur
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateaffectation", type="datetime")
+     */
+    private $dateaffectation;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datedesacffectation", type="datetime",nullable=true)
+     */
+    private $datedesacffectation;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="trash", type="boolean")
+     */
+    private $trash;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Crm\AdminBundle\Entity\Utilisateur",cascade={"persist","remove"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $superviseur;
+
+     /**
+    * @ORM\ManyToOne(targetEntity="Crm\AdminBundle\Entity\Utilisateur",cascade={"persist","remove"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $utilisateur;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Crm\AdminBundle\Entity\Profil",cascade={"persist","remove"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $profil;
+
+    public function __construct(){
+        $this->dateaffectation = new \DateTime();
+        $this->datedesacffectation = null;
+        $this->active = true;
+        $this->trash = false;
+    }
+
+}

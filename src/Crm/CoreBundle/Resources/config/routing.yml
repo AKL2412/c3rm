@@ -1,0 +1,7 @@
+crm_core_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CrmCoreBundle:Default:index }
+
+crm_core_update:
+    path:     /get-datas
+    defaults: { _controller: CrmCoreBundle:Default:update }

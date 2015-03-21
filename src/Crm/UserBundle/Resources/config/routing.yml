@@ -1,0 +1,11 @@
+crm_user_homepage:
+    path:     /
+    defaults: { _controller: CrmUserBundle:Default:index }
+
+crm_home:
+    path:     /
+    defaults: { _controller: CrmUserBundle:Default:index }
+
+c3rm_search_service:
+    path:     /c3rm/recherche
+    defaults: { _controller: CrmUserBundle:Default:recherche }

@@ -1,0 +1,33 @@
+<div class=" col-lg-12">
+	<div class="main">
+		<h1>
+			Render superviseur : {{utilisateur.nom}}
+		</h1>
+	</div>
+</div>
+<div class="rowd">
+			<div class="col-md-3">
+				<div class="un-groupe conf">
+					<div class="top">
+						<div class="nombre">
+							{{superviseur.mesConfirmateurs(utilisateur)|length}}
+						</div>
+					</div>
+					<div class="bottom">
+						confirmateurs
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="un-groupe agent">
+					<div class="top">
+						<div class="nombre">
+							{{superviseur.mesAgents(utilisateur)|length}}
+						</div>
+					</div>
+					<div class="bottom">
+						Agents
+					</div>
+				</div>
+			</div>
+		</div>

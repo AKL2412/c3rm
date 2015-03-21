@@ -1,0 +1,77 @@
+{% extends 'FOSMessageBundle::layout.html.twig' %}
+ {% block fos_message_entete_icon %}{% endblock %}
+{% block fos_message_entete %}
+	{%if destinataire is not null %}
+	{{destinataire.prenom}} <span>{{destinataire.nom}} </span>
+		<img src="{{asset(destinataire.image)}}" height="50">
+	{%else%}
+		{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}
+	{%endif%}
+{% endblock %}
+{% block fos_message_content %}
+
+
+
+<div class="main">
+<form action="{{ url('fos_message_thread_new') }}" method="post">
+  
+  	{%if recipient is not null %}
+  		<div class="form-group col-md-6">
+	        {{ form_errors(form.recipient) }}
+
+	        {# Génération de l'input. #}
+	        {{ form_widget(form.recipient, {'attr': {'value': destinataire.compte.username,'hidden':'hidden'}}) }}
+	     </div>
+  	{%else%}
+  		<div class="form-group col-md-6">
+    {# Génération du label. #}
+        {{ form_label(form.recipient, "Le login du destinataire") }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.recipient) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(form.recipient, {'attr': {'class': 'form-control'}}) }}
+      </div>
+
+  	{%endif%}
+    
+      <div class="form-group col-md-12">
+    {# Génération du label. #}
+        {{ form_label(form.subject, "Objet du message") }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.subject) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="form-group col-md-12">
+    {# Génération du label. #}
+        {{ form_label(form.body, "Contenu du message") }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.body) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(form.body, {'attr': {'class': 'form-control','rows':'5'}}) }}
+      </div>
+      {{form_rest(form)}}
+    <div class="row">
+    	<div class="col-md-2 form-group text-right">
+    		<input type="submit" class="btn btn-default"/>
+    	</div>
+    </div>
+</form>
+</div>
+
+{% endblock %}
+{%set idN = 0%}
+{%if destinataire is not null %}
+	{%set idN = destinataire.id%}
+{%endif%}
+{% block script %}
+	<script type="text/javascript">
+		contactActive({{idN}});
+	</script>
+{% endblock %}

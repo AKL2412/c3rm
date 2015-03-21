@@ -1,0 +1,187 @@
+@import "compass";
+@import "font.css";
+body{
+	background-color: #f1f1f1;/*E9EAED;*/
+	/*font-family: 'discoregular';*/
+	span.alert-notif{
+		display: inline-block;
+		padding: 2px;
+		color: #ffffff;
+		background-color: #b72f2f;
+		@include border-radius(50%);
+	}
+	#update-bell-message{
+		.dropdown-messages{
+			width: 250px;
+		}
+	}
+
+	.un-groupe{
+		width: 100%;
+		min-height: 200px;
+		height: auto;
+		border: 0px solid #aaa;
+		background: #ffffff;
+		@include box-shadow(0 0 1px rgba(0,0,0,0.2));
+		.top{
+			height: 150px;
+			.nombre{
+				color: #8e2727;
+				font-size: 7em;
+				text-align: center;
+				font-family: 'eb_garamondregular';
+				text-shadow:1px 2px 1px rgba(0,0,0,0.5);
+			}
+		}
+		.bottom{
+			height: 50px;
+			background-color: #8e2727;
+			text-align: center;
+			color: #ffffff;
+			font-weight: bolder;
+			font-size: 1.9em;
+			font-family: 'discoregular';
+			text-shadow:0 1px 1px rgba(0,0,0,0.9);
+		}
+	}
+	.un-groupe.agent{
+		.top .nombre{
+				color: #3b6020;
+			}
+		.bottom{
+			background-color: #3b6020;
+		}
+	}
+	.main{
+		background-color: #ffffff;
+		border: 1px solid #ccc;
+		margin: 3px 0;
+		border-radius: 0;
+		/*@include box-shadow(0 0 1px rgba(0,0,0,0.1));*/
+	}
+	
+	.details-utilisateur{
+		li{
+			font-weight: bolder;
+			i{
+				margin-right: 6px;
+				color: rgba(0,0,0,0.5);
+			}
+		}
+	}
+	span.nom{
+		font-weight: bolder;
+		text-transform: uppercase;
+	}
+	#body-main{
+		margin-top: 0px;
+	}
+
+	#top{
+		z-index: 1000;
+		nav{
+			background-color: rgba(0,0,0,0.3);
+		}
+	}
+
+	.titre-de-page{
+		padding-top: 70px;
+		padding-bottom: 30px;
+		background-image: url(../images/campagne-bg.jpg);
+		background-repeat: no-repeat;
+		background-size: 100%;
+		background: #232937;
+		margin-bottom: 8px;
+		/*min-height: 20px;
+		height: auto;*/
+		.un-groupe{
+			@include box-shadow(1px 2px 3px rgba(0,0,0,0.3));
+			a{
+				text-decoration: none;
+			}
+		}
+		.titre{
+			font-size: 1.6em;
+			color: #ffffff;
+			font-family: 'orbitronbold';
+			.bloc-messagerie{
+				list-style: none;
+				li{
+					display: inline-block;
+					font-size: 0.7em;
+					margin: 5px;
+					a.active{
+						color: #7cbc0a;
+						 font-family: 'eb_garamondregular';
+						 font-size: 1.2em;
+					}
+				}
+			}
+			
+		}
+		.liens{
+			i{
+				color: #ffffff;
+				margin: 0 3px;
+			}
+			a{
+				color: #ccc;
+				text-decoration: none;
+			}
+			a.active{
+				color: #7cbc0a;
+			}
+		}
+	}
+	.titre-de-page.index{
+		@include box-shadow(0 -4px 9px rgba(0,0,0,0.5) inset);
+		padding-bottom: 80px;
+		background-color: #636a7a;
+		border-bottom: 5px inset #777;
+	}
+	footer{
+		min-height: 100px;
+		background-image: url(../images/campagne-bg.jpg);
+		background-repeat: no-repeat;
+		background-size: 100%;
+		margin-top: 30px;
+	}
+
+	/*
+		Page de contact
+	*/
+	#search-contact{
+		border: 1px solid #ffffff;
+		display: block;
+		width: 100%;
+		height: 35px;
+		padding-left: 8px;
+		font-family: 'eb_garamondregular';
+		font-size: 1.2em;
+	}
+	#list-contacts{
+		height: 300px;
+		overflow: auto;
+		a{
+			text-decoration: none;
+			display: block;
+			width: 100%;
+			padding: 3px 3%;
+			@include transition-duration(0.6s);
+			i{
+				display: none;
+				@include transition-duration(0.5s);
+			}
+		}
+		a.active{
+			color: #f1f1f1;
+			padding-left: 6%;
+			font-weight: bolder;
+			background: #232937;
+			i{
+				display: inline;
+			}
+		}
+	}
+	
+}

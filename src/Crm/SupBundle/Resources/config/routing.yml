@@ -1,0 +1,12 @@
+crm_sup_homepage:
+    path:     /superviseur
+    defaults: { _controller: CrmSupBundle:Default:index }
+
+
+crm_sup_utilisateurs:
+    path:     /les-utilisateurs
+    defaults: { _controller: CrmSupBundle:Default:utilisateurs }
+
+crm_sup_utilisateurs_voir_un:
+    path:     /les-utilisateurs-{id}
+    defaults: { _controller: CrmSupBundle:Default:utilisateursvoir }

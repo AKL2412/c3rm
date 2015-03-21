@@ -1,0 +1,124 @@
+{%extends '::layout.html.twig' %}
+{%block title%}
+Affectation de confirmateurs
+{%endblock title%}
+{%block body%}
+<div class="titre-de-page row-">
+	<div class="container">
+		<div class="col-md-7 titre">
+			{{"Affectation de confirmateurs"|trans}}
+		</div>
+		<div class="col-md-5 text-right liens">
+			<a href="{{url('crm_home')}} ">Home</a>
+			<i class="fa-angle-right fa"></i>
+			<a href="{{url('crm_sup_utilisateurs')}} ">Utilisateurs</a>
+			<i class="fa-angle-right fa"></i>
+			<a href="{{url('crm_sup_utilisateurs_voir_un',{id:utilisateur.id})}} ">
+				{{utilisateur.prenom}}
+			</a>
+			<i class="fa-angle-right fa"></i>
+			<a href="#" class="active">Affectation d'agents</a>
+		</div>
+	</div>
+</div>
+<div class="container">
+	nombre d'agents : {{agents|length}}
+
+
+	<div class="row">
+		<form method="post" role="form">
+		<div class="panel-default panel">
+			<div class="panel-body">
+				{%for agt in agents %}
+					<div class="col-md-3 text-center">
+						<img style="display:inline-block" src="{{asset(agt.image)}} " height="60" class="thumbnail"><br>
+					<label for="agt{{agt.id}}">{{agt.prenom}}	<span class="nom">{{agt.nom}}</span> </label>
+					{#{agt.profil.nom}#}
+					<input type="checkbox" name="agt{{agt.id}}" value="{{agt.id}}" id="agt{{agt.id}}">
+					</div>
+				{%endfor%}
+			</div>
+			<div class="panel-footer">
+				<div class="row">
+					<div class="col-md-3">
+						<input value="Affecter" type="submit" class="btn btn-success">
+					</div>
+				
+					<div class="col-md-5 col-sm-8 col-xs-12 pull-right">
+						<nav>
+						  <ul class="pagination pagination-md">
+						  	{%if pagination.page > 1 %}
+						  		<li>
+							      <a href="{{url('crm_sup_utilisateurs',{page:pagination.page-1})}} " aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+							  	{%endif%}
+							  	{%set last = pagination.page %}
+							  	{%for p in pagination.pagination%}
+							  		{%set l ="" %}
+							  		{%if p.libelle == pagination.page %}
+							  			{%set l ="active" %}
+							  		{%endif%}
+							  		<li class="{{l}}"><a href="{{p.url}} ">{{p.libelle}} </a></li>
+							  		{%if p.libelle != '...' and p.libelle != pagination.last%}
+							  		{%set last = p.libelle%}
+							  		{%endif%}
+							  	{%endfor%}
+							  	
+							  	{%if last < pagination.last and pagination.last != pagination.page %}
+							  		<li>
+							      <a href="{{url('crm_sup_utilisateurs',{page:pagination.page+1})}}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span> 
+							      </a>
+							    </li>
+							  	{%endif%}
+						  </ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	
+		
+	</div>
+	
+	<div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="un-groupe conf">
+					<div class="top">
+						<div class="nombre">
+							{{superviseur.mesConfirmateurs(utilisateur)|length}}
+						</div>
+					</div>
+					<div class="bottom">
+						confirmateurs
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="un-groupe agent">
+					<div class="top">
+						<div class="nombre">
+							{{superviseur.mesAgents(utilisateur)|length}}
+						</div>
+					</div>
+					<div class="bottom">
+						Agents
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+{%endblock body%}
+{%block script%}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	activeLien("{{classe}}");
+});
+</script>
+{%endblock script%}

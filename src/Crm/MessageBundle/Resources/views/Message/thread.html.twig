@@ -1,0 +1,49 @@
+{% extends 'FOSMessageBundle::layout.html.twig' %}
+{% block fos_message_entete %}
+{{ thread.subject }}
+{% endblock %}
+{% block fos_message_content %}
+
+<div class="main">
+{% for message in thread.messages %}
+    <div class="messenger_thread_message">
+        <div class="messenger_thread_message_info text-right">
+            {#% trans with {'%sender%': |e } from 'FOSMessageBundle' %}message_info{% endtrans %#}
+            {{user.utilisateurByUser(message.sender)|raw}}
+            <em>{{message.createdAt|date('d-m-Y H:i:s')}}</em>
+        </div>
+
+        <div class="messenger_thread_message_body" id="message_{{ message.id }}">
+            {{ message.body }}
+        </div>
+    </div>
+{% endfor %}
+</div>
+<div class="main">
+
+
+<form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
+    
+    <div class="form-group col-md-12">
+        <h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
+    {# Génération du label. #}
+        {#{ form_label(form.body, "Contenu du message") }#}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.body) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(form.body, {'attr': {'class': 'form-control','rows':'5'}}) }}
+      </div>
+      {{form_rest(form)}}
+ <div class="form-group col-md-12-">
+     <button type="submit" class="btn btn-success">
+        <i class="fa-reply fa"></i> repondre
+     </button>
+</div>
+
+   
+</form>
+</div>
+
+{% endblock %}

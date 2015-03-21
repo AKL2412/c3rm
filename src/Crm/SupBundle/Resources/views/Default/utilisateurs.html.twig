@@ -1,0 +1,151 @@
+{%extends '::layout.html.twig' %}
+{%block title%}
+liste des utilisateurs [profil : {{profil}}]
+{%endblock title%}
+{%block body%}
+<div class="titre-de-page row-">
+	<div class="container">
+		<div class="col-md-7 titre">
+			<i class="fa-users fa-2x fa"></i>
+			{{'The Users'|trans}} [ Profil : <em>{{profil}} </em> ] 
+		</div>
+		<div class="col-md-5 text-right liens">
+			<a href="{{url('crm_home')}} ">{{'Accueil'|trans}}</a>
+			<i class="fa-angle-right fa"></i>
+			<a href="#" class="active">{{'Utilisateurs'|trans}}</a>
+			<br>
+			{%if is_granted('ROLE_ADMIN')%}
+				<a href="{{url('crm_admin_ajouter_utilisateur')}}" class="text-success pull-right">
+					<i class="fa-plus-circle fa"></i>
+					{{'Add New User'|trans}}
+				</a>
+			{%endif%}
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row main">
+		<div class="col-md-9 col-sm-8 col-xs-12">
+			<nav>
+			  <ul class="pagination pagination-md">
+			  	{%if pagination.page > 1 %}
+			  		<li>
+				      <a href="{{url('crm_sup_utilisateurs',{page:pagination.page-1,profil:profil})}} " aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				  	{%endif%}
+				  	{%set last = pagination.page %}
+				  	{%for p in pagination.pagination%}
+				  		{%set l ="" %}
+				  		{%if p.libelle == pagination.page %}
+				  			{%set l ="active" %}
+				  		{%endif%}
+				  		<li class="{{l}}"><a href="{{p.url}} ">{{p.libelle}} </a></li>
+				  		{%if p.libelle != '...' and p.libelle != pagination.last%}
+				  		{%set last = p.libelle%}
+				  		{%endif%}
+				  	{%endfor%}
+				  	
+				  	{%if last < pagination.last and pagination.last != pagination.page %}
+				  		<li>
+				      <a href="{{url('crm_sup_utilisateurs',{page:pagination.page+1,profil:profil})}}" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span> 
+				      </a>
+				    </li>
+				  	{%endif%}
+			  </ul>
+			</nav>
+		</div>
+		{%if is_granted('ROLE_SUP')%}
+		<div class="col-md-3 col-sm-4 col-xs-12 form-group">
+			<label></label>
+			<select class="form-control" id="profil-select">
+				<option value="Tous les profils">{{'Tous les profils'|trans}} </option>
+				{%for pro in profils %}
+					<option value="{{pro.nom}}" {%if pro.nom == profil %}selected="selected" {%endif%} >{{pro.nom}}</option>
+				{%endfor%}
+			</select>
+		</div>
+		{%endif%}
+	</div>
+	{{utilisateurs|length}}
+	{%if utilisateurs|length > 0%}
+	<div class="row main">
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>ID</th>
+					<th>{{'Prenom'|trans}}</th>
+					<th>{{'Nom'|trans}}</th>
+					<th>Profil</th>
+					<th>{{"Date d'ajout"|trans}} </th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{%for util in utilisateurs %}
+
+					<tr>
+						<td>
+							<a href="{{url('crm_sup_utilisateurs_voir_un',{id:util.id})}} ">
+								<img src="{{asset(util.image)}} " height="30" class="img-circle">
+							</a>
+						</td>
+						<td>{{util.id}}</td>
+						<td>{{util.prenom}}</td>
+						<td><span class="nom">{{util.nom}} </span></td>
+						<td>
+							{{util.profil.nom}}
+						</td>
+						<td><em>{{util.dateajout|date('d-m-Y H:i')}} </em></td>
+						<td>
+							<a href="{{url('crm_sup_utilisateurs_voir_un',{id:util.id})}} " class="btn btn-link">
+								Voir les détails
+							</a>
+						</td>
+					</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+	</div>
+	{%else%}
+		<div class="alert-danger alert text-center">
+			<h1>Pas d'utilisateur</h1>
+		</div>
+	{%endif%}
+
+</div>
+
+{%endblock body%}
+{%block script%}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	activeLien("{{classe}}");
+
+	$('#profil-select').change(function(ev){
+		$url = (window.location.href).split('?');
+		$clUrl = $url[0];
+		if($url.length > 1 ){
+			window.location.href = $clUrl+"?"+deleteParams($url[1],$(this).val());
+		}else{
+			window.location.href = $clUrl+"?profil="+$(this).val();
+		}
+		
+	});
+});
+function deleteParams($params,$newVal){
+	var tab = $params.split('&');
+	var str = "";
+	for (var i = 0; i < tab.length; i++) {
+		var temp = tab[i].split('=');
+		if(temp[0] == 'page')
+			str += temp[0]+"=1&"
+	};
+	str += "profil="+$newVal;
+	return str;
+}
+</script>
+{%endblock script%}

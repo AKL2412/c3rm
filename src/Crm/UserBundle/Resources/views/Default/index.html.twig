@@ -1,0 +1,26 @@
+{%extends '::layout.html.twig' %}
+
+{%block body%}
+<div class="titre-de-page row">
+	<div class="col-md-7 titre">
+		Liste de campagnes
+	</div>
+	<div class="col-md-5 text-right liens">
+		<a href="#">Home</a>
+		<i class="fa-angle-right fa"></i>
+		<a href="#" class="active">Campagnes</a>
+	</div>
+</div>
+Hello {{ name }}!
+<b class="fa-home fa"></b>
+<div class="btn-group">
+	<i class="fa-send fa"></i>
+	<input type="button" value="Envoyer">
+</div>
+<div class="input-group">
+<i class="fa-send fa"></i>
+	<input type="button" value="Envoyer" class="btn">
+</div>
+<input type="button" value="C3RM btn" class="c3rm-btn">
+<a href="{{url('crm_admin_homepage')}} "> Administrateur</a>
+{%endblock body%}

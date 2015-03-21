@@ -1,0 +1,130 @@
+<html>
+<head>
+	<title>
+        {%block title%}C3RM{%endblock title%}
+    </title>
+	
+	<link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}} ">
+	<link rel="stylesheet" type="text/css" href="{{asset('font-awesome/css/font-awesome.css')}} ">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}} ">
+</head>
+<body>
+<div id="top">
+<div class="navbar navbar-inverse navbar-fixed-top" id="topnav">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{url('crm_home')}}">
+            	<span id="c3rm-brand">
+            		C3RM
+            	</span>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse ">
+            <ul class="nav navbar-nav">
+                <li class="home">
+                    <a href="{{url('crm_home')}} ">
+                        <i class="fa-home fa"></i>
+                        {{"Accueil"|trans}}
+                    </a>
+                </li>
+                {%if is_granted('ROLE_SUP')%}
+                    <li class="utilisateur">
+                        <a href="{{url('crm_sup_utilisateurs')}}" >
+                            <i class="fa-users fa"></i>
+                            {{'Utilisateurs'|trans}}
+                        </a>
+                    </li>
+                {%endif%}
+                <li class="campagne">
+                    <a href="#features">
+                        <i class="fa-book fa"></i>
+                        {{'Campagne(s)'|trans}}
+                    </a>
+                </li>
+                <!-- <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#clients">Clients</a></li>
+                <li><a href="#contact">Contact</a></li> -->
+
+            </ul>
+            <!-- fc3rm_search_service -->
+             <form class="navbar-form navbar-left" action="{{url('c3rm_search_service')}} " method="get" role="search">
+                <div class="input-group nav navbar-nav navbar-right">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="fa-search fa"></i>
+                        {{'Chercher'|trans}} </button>
+                  </span>
+                  <input type="text" name="q" class="form-control" placeholder="{{'Rechercher'|trans}}...">
+                </div>
+            </form>
+       
+        <ul class="nav navbar-nav navbar-right">
+            
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <i class="fa-user fa"></i>
+                {{app.user.username}}
+             <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">{{'Voir mon compte'|trans}} </a></li>
+                <li><a href="#"><i class="fa-edit fa"></i>{{'Modifier mon compte'|trans}} </a></li>
+                <li class="divider"></li>
+                
+                <li>
+                    <a href="{{url('fos_user_security_logout')}} ">
+                        <i class="fa-sign-out fa"></i>
+                        {{'Se déconnecter'|trans}}
+                    </a>
+                </li>
+              </ul>
+            </li>
+            {%endif%}
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right" id="update-bell-message">
+                 {{ render(controller('CrmCoreBundle:Default:update')) }}
+        </ul>
+       </div>
+        <!--/.navbar-collapse -->
+    </div>
+</div>
+</div>
+
+<div id="body-main" >
+{%block body%}
+
+{%endblock body%}
+
+</div>
+
+<footer>
+      <div>
+        {{ render(controller(
+        'CrmUserBundle:Default:position'
+    )) }}
+  
+    
+    </div>
+</footer>
+
+<script type="text/javascript" src="{{asset('js/jquery.min.js')}} "></script>
+<script type="text/javascript" src="{{asset('js/app.js')}} "></script>
+<script type="text/javascript" src="{{asset('js/update.js')}} "></script>
+<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}} "></script>
+{%block script%}
+
+{%endblock script%}
+<script type="text/javascript">
+
+jQuery(document).ready(function(){
+    update("{{url('crm_core_update')}}",$('#update-bell-message'));
+});
+</script>
+</body>
+</html>

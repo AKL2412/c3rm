@@ -1,0 +1,68 @@
+{%extends '::layout.html.twig' %}
+{%block title%}
+{% trans from 'FOSMessageBundle' %}messenger{% endtrans %}
+{%endblock title%}
+{%block body%}
+
+        
+<div class="titre-de-page">
+     <div class="container">
+        <div class="row">
+            <div class="col-md-7 titre">
+                {% trans from 'FOSMessageBundle' %}messenger{% endtrans %}
+
+                <ul class="bloc-messagerie">
+                    <li><a class="messagerie"  href="{{ url('fos_message_inbox') }}">{% trans from 'FOSMessageBundle' %}inbox{% endtrans %}</a></li>
+                    <li><a class="sent" href="{{ url('fos_message_sent') }}">{% trans from 'FOSMessageBundle' %}sent{% endtrans %}</a></li>
+                    <li><a class="deleted" href="{{ url('fos_message_deleted') }}">{% trans from 'FOSMessageBundle' %}deleted{% endtrans %}</a></li>
+                </ul>
+            </div>
+            <div class="col-md-5 text-right liens">
+                <a href="#" class="active">
+                    <h3>
+                        {% block fos_message_entete_icon %}<i class="fa-hand-o-right fa"></i>{% endblock %}
+                   {% block fos_message_entete %}{% endblock %}
+               </h3>
+                </a>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="container">
+    <div class="col-md-3">
+        {{ render(controller('CrmCoreBundle:Default:contact')) }}
+    </div>
+    <div class="col-md-9">
+        {% block fos_message_content %}{% endblock %}
+    </div>
+
+</div>
+        
+{%endblock body%}
+
+{%block script%}
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        var url = window.location.href
+        var tt = url.split("?")[0];
+        var text = tt.split("/");
+        var index = text.length - 1;
+        var ext = text[index];
+        while(ext.length < 1 && index >= 0 ){
+            index -=1;
+            ext = text[index];
+
+        }
+
+        if($('.bloc-messagerie .'+ext).length > 0){
+            $('.bloc-messagerie a').removeClass('active');
+            $('.bloc-messagerie .'+ext).addClass('active')
+        }else if(ext == 'new'){
+            $('.bloc-messagerie a').removeClass('active');
+            $('.bloc-messagerie .new-message').addClass('active')
+        }
+                
+            
+    });
+</script>
+{%endblock script%}

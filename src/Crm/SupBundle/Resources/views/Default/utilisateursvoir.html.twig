@@ -1,0 +1,209 @@
+{%extends '::layout.html.twig' %}
+{%block title%}
+{{utilisateur.prenom}} {{utilisateur.nom}} 
+{%endblock title%}
+{%block body%}
+<div class="titre-de-page row-">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7 titre">
+				{{utilisateur.prenom}} <span class="nom">{{utilisateur.nom}}</span>
+			</div>
+			<div class="col-md-5 text-right liens">
+				<a href="{{url('crm_home')}} ">Home</a>
+				<i class="fa-angle-right fa"></i>
+				<a href="{{url('crm_sup_utilisateurs')}} ">Utilisateurs</a>
+				<i class="fa-angle-right fa"></i>
+				<a href="#" class="active">{{utilisateur.nom}}</a>
+			</div>
+		</div>
+		{%if is_granted('ROLE_ADMIN')%}
+			<div class="row">
+				{%set compte = utilisateur.compte %}
+				<div class="col-md-5">
+					{%if granted.isGranted(utilisateur,"ROLE_SUP")%}
+						<a href="{{url('crm_admin_utilisateur_affecter_des_agents',{id:utilisateur.id})}} " class="btn btn-link">
+							<i class="fa-plus-square fa"></i>
+							Affecter des agents 
+						</a> | 
+						<a href="{{url('crm_admin_utilisateur_affecter_des_confirmateurs',{id:utilisateur.id})}} " class="btn btn-link">
+							<i class="fa-plus-circle fa"></i>
+							Affecter des confirmateurs
+						</a>
+					{%endif%}
+				</div>
+				<div class="col-md-7 text-right">
+					{%if compte is null %} 
+						{{utilisateur.nom}} n'a pas de compte de connection
+						<a href="{{url('crm_admin_creer_compte_utilisateur',{id:utilisateur.id})}} " class="btn btn-link btn-xs">
+							<i class="fa-plus-circle fa"></i>
+							Créer son compte de connection
+						</a>
+					{%else%}
+				  	{%if compte.enabled %}
+						<a href="{{url('crm_admin_active_desactiver_compte_utilisateur',{id:utilisateur.id})}} " title="Désactiver le compte" class="btn btn-link text-success">
+							<i class="fa-check-circle fa"></i>
+							Compte Activé
+						</a>
+					{%else%}
+							<a href="{{url('crm_admin_active_desactiver_compte_utilisateur',{id:utilisateur.id})}} " title="Activer le compte" class="btn btn-link text-danger">
+								<i class="fa-times fa"></i>
+								Compte Desactivé
+							</a>
+					{%endif%}
+				{
+					{%endif%}
+					|&nbsp;<a href="{{url('crm_admin_utilisateurs_modifier_un',{id:utilisateur.id})}} ">
+					<i class="fa-edit fa"></i>
+					Modifier</a>
+				</div>
+			</div>
+		{%endif%}
+	</div>
+</div>
+<div class="container">
+
+<div class="row">
+	
+	<div class="col-md-5">
+		<ul class="list-group main details-utilisateur">
+		  
+		  <li class="list-group-item">
+		  	<i class="fa-birthday-cake fa"></i>
+		  	{{utilisateur.ddn|date('d-m-Y')}}
+		  </li>
+		  <li class="list-group-item">
+
+		  	<i class="fa-envelope fa"></i>{{utilisateur.email}}
+		  	<a href="{{crypt.encrypt('aby')}}" class="pull-right btn btn-link" title="Envoyer un message">
+		  		<i class="fa-paper-plane-o fa"></i>
+		  	</a>
+		  </li>
+		  <li class="list-group-item">
+		  	<i class="fa-user fa"></i>
+		  	{{utilisateur.profil.nom}}
+		  </li>
+		  <li class="list-group-item">
+		  	<i class="fa-barcode fa"></i>
+		  	{{utilisateur.cin}}
+		  </li>
+		   <li class="list-group-item">
+		  	<i class="fa-phone fa"></i>
+		  	{{utilisateur.tel}}
+		  </li>
+		  <li class="list-group-item">
+		  	<i class="fa-home fa"></i>
+		  	{{utilisateur.adresse}}
+		  </li>
+		  <li class="list-group-item">
+		  	{%set genre = utilisateur.genre %}
+		  	{%if genre is not null %}
+		  		{%if genre.code == 'M'%}
+		  			<i class="fa-male fa"></i>
+		  			{{genre.nom}}
+		  		{%else%}
+		  			<i class="fa-female fa"></i>
+		  			{{genre.nom}}
+		  		{%endif%}
+		  	{%else%}
+		  		{%if is_granted('ROLE_ADMIN')%}
+			  		<a href="{{url('crm_admin_utilisateurs_modifier_un',{id:utilisateur.id})}} ">
+						<i class="fa-pencil fa"></i>
+						Spécifier le genre
+					</a>
+				{%else%}
+					Genre non spécifié
+				{%endif%}
+		  	{%endif%}
+		  	
+		  </li>
+		</ul>
+	</div>
+	
+		<div class="col-md-4">
+			{%if is_granted('ROLE_SUPER_ADMIN')%}
+			<ul class="list-group main ">
+			  <li class="list-group-item">
+			  	<label>Mot de passe : </label>
+			  	{{utilisateur.motpasse}}
+			  	{%if compte is not null %}
+			  	<a href="{{crypt.encrypt('aby')}}" class="pull-right btn btn-link" title="Modifier son mot de passe">
+			  		<i class="fa-pencil fa"></i>
+			  	</a>
+			  	{%endif%}
+			  </li>
+			   <li class="list-group-item">
+			  	<label>Login : </label>
+			  	{%if compte is not null %}
+				  	{{compte.username}}
+				{%else%}
+					Pas de compte
+				{%endif%}
+
+			  </li>	
+			  <li class="list-group-item">
+			  	<label>Etat de son compte : </label>
+			  	{%if compte is not null %}
+				  	{%if compte.enabled %}
+						<span class="btn btn-link text-success">
+							<i class="fa-check-circle fa"></i>
+							Compte Activé
+						</span>
+					{%else%}
+							<span class="btn btn-link text-danger">
+								<i class="fa-times fa"></i>
+								Compte Desactivé
+							</span>
+					{%endif%}
+				{%else%}
+					Pas de compte
+				{%endif%}
+
+			  </li>
+			  
+			</ul>
+			{%endif%}
+		</div>
+	
+	<div class="col-md-3" style="max-height:250px;overflow:hidden">
+		<img src="{{asset(utilisateur.image)}} " style="width:100%" class="main thumbnail">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="main text-justify" style="padding:10px">
+			{{utilisateur.presentation|raw}}
+		</div>
+	</div>
+	
+</div>
+<div class="row">
+	{%if granted.isGranted(utilisateur,'ROLE_AGENT')%}
+
+		{{ render(controller('CrmCoreBundle:Afficher:agent',{'utilisateur':utilisateur}))}}
+
+	{%elseif granted.isGranted(utilisateur,'ROLE_CONF')%}
+
+		{{ render(controller('CrmCoreBundle:Afficher:confirmateur',{'utilisateur':utilisateur}))}}
+
+	{%elseif granted.isGranted(utilisateur,'ROLE_SUP')%}
+
+		{{ render(controller('CrmCoreBundle:Afficher:superviseur',{'utilisateur':utilisateur}))}}
+
+	{%elseif granted.isGranted(utilisateur,'ROLE_ADMIN')%}
+
+		{{ render(controller('CrmCoreBundle:Afficher:administrateur',{'utilisateur':utilisateur}))}}
+
+	{%endif%}
+</div>
+
+</div>
+
+{%endblock body%}
+{%block script%}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	activeLien("{{classe}}");
+});
+</script>
+{%endblock script%}

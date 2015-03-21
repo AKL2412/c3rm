@@ -1,0 +1,33 @@
+{%extends '::layout.html.twig' %}
+
+{%block body%}
+<div class="titre-de-page row-">
+	<div class="container">
+		<div class="col-md-7 titre">
+			{{titre|raw}}
+		</div>
+		<div class="col-md-5 text-right liens">
+			<a href="{{url('crm_home')}} ">Home</a>
+			<i class="fa-angle-right fa"></i>
+			<a href="{{url('crm_sup_utilisateurs')}} ">Utilisateurs</a>
+			<i class="fa-angle-right fa"></i>
+			<a href="#" class="active">{{titre|raw}}</a>
+		</div>
+	</div>
+</div>
+<div class="container">
+	{%set util = form.vars.value %}
+	<img height="100" src="{{asset(util.image)}} ">
+{{form(form)}}
+<a href="{{url('crm_admin_ajouter_utilisateur')}} ">Ajouter un nouvel utilisateur</a>
+
+</div>
+
+{%endblock body%}
+{%block script%}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	activeLien("{{classe}}");
+});
+</script>
+{%endblock script%}
