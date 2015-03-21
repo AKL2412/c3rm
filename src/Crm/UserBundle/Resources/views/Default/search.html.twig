@@ -1,0 +1,92 @@
+{%extends '::layout.html.twig' %}
+{%block title%}
+Recherche : {{data.q}}
+{%endblock title%}
+{%block body%}
+<div class="titre-de-page row-">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7 titre">
+				<i class="fa-search fa"></i>
+				Recherche : {{data.q}}
+			</div>
+			<div class="col-md-5 text-right liens">
+			</div>
+		</div>
+		
+	</div>
+</div>
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-6 pull-right">
+		<div class="main-">
+			<br>
+			<form action="{{url('c3rm_search_service')}} " method="get" role="search">
+                <div class="input-group ">
+                	 <input type="text" name="q" class="form-control" placeholder="{{'Rechercher'|trans}}..." value="{{data.q}}">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa-search fa"></i>
+                        {{'Chercher'|trans}} </button>
+                  </span>
+                 
+                </div>
+            </form>
+		</div>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="main-">
+			<ul class="tab-heading">
+				<li role="utilisateurs" class="active">
+					<a href="#">
+						Utilisateurs <span>{{data.utilisateurs|length}} </span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						Campagnes <span>{{data.campagnes|length}} </span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						Groupes <span>{{data.groupes|length}} </span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						Clients <span>{{data.clients|length}} </span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div id="tab-body" class="main">
+			<div class="tab-content" id="utilisateurs">
+				{%for utilisateur in data.utilisateurs %}
+					<div class="utilisateur">
+						<div class="en-tete">
+							<img src="{{asset(utilisateur.image)}} " height="70">
+						
+							<a href="{{url('crm_sup_utilisateurs_voir_un',{id:utilisateur.id})}} ">
+								<h2>
+									{{utilisateur.prenom}} {{utilisateur.nom}}
+								</h2>
+							</a>
+						</div>
+						 
+					</div>
+				{%endfor%}
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{%endblock body%}
+
+{%block script%}
+
+{%endblock script%}

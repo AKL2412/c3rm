@@ -51,7 +51,7 @@
 								Compte Desactivé
 							</a>
 					{%endif%}
-				{
+				
 					{%endif%}
 					|&nbsp;<a href="{{url('crm_admin_utilisateurs_modifier_un',{id:utilisateur.id})}} ">
 					<i class="fa-edit fa"></i>
@@ -75,9 +75,11 @@
 		  <li class="list-group-item">
 
 		  	<i class="fa-envelope fa"></i>{{utilisateur.email}}
-		  	<a href="{{crypt.encrypt('aby')}}" class="pull-right btn btn-link" title="Envoyer un message">
+		  	{%if utilisateur.compte is not null%}
+		  	<a href="{{url('fos_message_thread_new',{d:crypt.encrypt(utilisateur.compte.username)})}} " class="pull-right btn btn-link" title="Envoyer un message">
 		  		<i class="fa-paper-plane-o fa"></i>
 		  	</a>
+		  	{%endif%}
 		  </li>
 		  <li class="list-group-item">
 		  	<i class="fa-user fa"></i>
@@ -177,7 +179,7 @@
 	</div>
 	
 </div>
-<div class="row">
+<div class="row-">
 	{%if granted.isGranted(utilisateur,'ROLE_AGENT')%}
 
 		{{ render(controller('CrmCoreBundle:Afficher:agent',{'utilisateur':utilisateur}))}}

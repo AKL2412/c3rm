@@ -34,11 +34,27 @@ class DefaultController extends Controller
     public function rechercheAction(Request $request){
         $q = $request->query->get('q');
         $serviceSearch = $this->get('crm_core.search');
-        echo "<pre>";
-        print_r($serviceSearch->search(array("q"=>$q,"roles"=>$this->getUser()->getRoles())));
-        
-        echo "</pre>";
-        return new Response("");
+        $user = $this->getUser();
+       
+        $utilisateur = $this->getDoctrine()->getManager()
+            ->getRepository('CrmAdminBundle:Utilisateur')
+            ->findOneByCompte($user);
+
+         $data = array(
+            "q"=>$q,
+            "roles"=>$user->getRoles(),
+            "utilisateur"=>$utilisateur,
+            "utilisateurs"=>array(),
+            "campagnes"=>array(),
+            "clients"=>array(),
+            "groupes"=>array(),
+            "user"=>null
+         );
+         //
+        return $this->render('CrmUserBundle:Default:search.html.twig',
+        array(
+        'data' => $serviceSearch->search($data)
+        ));
     }
 
     public function traductionAction($name){

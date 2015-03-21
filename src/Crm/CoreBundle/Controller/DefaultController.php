@@ -52,12 +52,15 @@ class DefaultController extends Controller
 			
 			$query = $em->createQuery('SELECT u FROM CrmAdminBundle:Utilisateur u WHERE u.compte is NOT NULL');
 			$contacts = $query->getResult();
-
-/*
-        	$contacts = $repo->findBy(
-        		array("compte"=>"not null"),array(),null,0);
-        	//*/
-    	}
+    	}elseif ($this->get('security.context')->isGranted('ROLE_SUP')){
+            $query = $em->createQuery(' SELECT t FROM CrmAdminBundle:Utilisateur t WHERE t.id IN (SELECT u.id FROM CrmAdminBundle:SupUtilisateur s JOIN s.utilisateur u  WHERE u.compte is NOT NULL and s.superviseur = :sup)');
+            $query->setParameter("sup",$utilisateur);
+            $contacts = $query->getResult();
+             // echo "<pre>";
+             // print_r($contacts);
+             // echo "</pre>";
+             // die('');
+        }
     	return $this->render('CrmCoreBundle:Default:contacts.html.twig', array('contacts' => $contacts
         	));
     }

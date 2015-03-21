@@ -1,11 +1,14 @@
-<div class=" col-lg-12">
-	<div class="main">
-		<h1>
-			Render superviseur : {{utilisateur.nom}}
-		</h1>
+<div class="row">
+	<div class=" col-lg-12">
+		<div class="main">
+			<h1>
+				Render superviseur : {{utilisateur.nom}}
+			</h1>
+		</div>
 	</div>
 </div>
-<div class="rowd">
+
+<div class="row">
 			<div class="col-md-3">
 				<div class="un-groupe conf">
 					<div class="top">
@@ -30,4 +33,18 @@
 					</div>
 				</div>
 			</div>
-		</div>
+</div>
+<div class="main">
+logs : {{logs|length}}
+{%for log in logs %}
+	<div>
+	#{{log.id}}::	connecté le {{log.connectedat|date('d-m-Y \à H:i:s')}} 
+	{%if log.connected %}
+	--
+		<i class="fa-check fa"></i> connecté
+	{%else%}
+	 --  deconnecté le {{log.deconnectedat|date('d-m-Y \à H:i:s')}} 
+	 {%endif%}
+	</div>
+{%endfor%}
+</div>

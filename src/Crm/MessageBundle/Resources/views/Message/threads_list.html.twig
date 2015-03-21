@@ -27,7 +27,8 @@
                     {% endif %}
                 </td>
                 <td>
-                    {{ thread.createdBy }}
+                    {#{ thread.createdBy }#}
+                    {{user.utilisateurByUser(thread.createdBy)|raw}}
                 </td>
                 <td>
                     {{ thread.createdAt|date }}
